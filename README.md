@@ -39,6 +39,10 @@ _{This is a detailed description of your application. Give as much detail as nee
 
 _{ADD STEPS FOR RESTORING THE DATABASE ETC.}_
 
+## Schemas
+
+_{screenshot swagger schema}_
+
 ## Endpoints
 
 _{screenshot swagger endpoints?}_
@@ -73,7 +77,7 @@ _{screenshot example queries ?}_
 
 #### for POST request
 
-When making a POST request to `http://localhost:5000/api/Parks/`, you need to include a **body**. Here's an example body in JSON:
+When making a `POST` request to `http://localhost:5000/api/Parks/`, you need to include a **body**. Here's an example body in JSON:
 
 ```json
 {
@@ -87,7 +91,9 @@ When making a POST request to `http://localhost:5000/api/Parks/`, you need to in
 
 #### for PUT request
 
-When making a PUT request to `http://localhost:5000/api/Parks/{id}`, you need to include a body that includes the park's `parkId` property which must match the id number in the URL. Here's an example body in JSON:
+When making a `PUT` request to `http://localhost:5000/api/Parks/{id}`, you need to include a body that includes the park's `parkId` property which must match the id number in the URL. Here's an example in JSON:
+
+`PUT http://localhost:5000/api/Parks/1`
 
 ```json
 {
@@ -100,10 +106,6 @@ When making a PUT request to `http://localhost:5000/api/Parks/{id}`, you need to
 }
 ```
 
-And here's the PUT request we would send the body to:
-
-`http://localhost:5000/api/Parks/1`
-
 
 ## Known Bugs
 
@@ -112,6 +114,7 @@ And here's the PUT request we would send the body to:
 ## Stretch Plans
 
 * Add `PATCH` functionality.
+* Hard-code more parks in
 * Add a `RANDOM` endpoint that randomly returns a park.
 * Add a second custom endpoint that accepts parameters. Example: a `SEARCH` route that allows users to search by specific park names.
 * Add a front end MVC application that consumes this API.

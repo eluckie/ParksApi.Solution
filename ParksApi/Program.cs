@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddNewtonsoftJson();
 
 builder.Services.AddDbContext<ParksApiContext>(
     dbContextOptions => dbContextOptions
@@ -30,6 +31,7 @@ else
 }
 
 app.UseAuthorization();
+app.UseStaticFiles();
 
 app.MapControllers();
 

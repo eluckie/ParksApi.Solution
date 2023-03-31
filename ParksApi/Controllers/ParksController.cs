@@ -15,7 +15,7 @@ namespace ParksApi.Controllers
       _db = db;
     }
 
-    // GET /parks
+    // GET api/Parks?page=1&pageSize=10
     [HttpGet]
     public async Task<IActionResult> Get(string city, string state, int page = 1, int pageSize = 10)
     {
@@ -51,7 +51,7 @@ namespace ParksApi.Controllers
       return Ok(response);
     }
 
-    // GET /parks/{id}
+    // GET api/Parks/{id}
     [HttpGet("{id}")]
     public async Task<ActionResult<Park>> GetPark(int id)
     {
@@ -65,7 +65,7 @@ namespace ParksApi.Controllers
       return park;
     }
 
-    // POST /parks
+    // POST api/Parks
     [HttpPost]
     public async Task<ActionResult<Park>> Post(Park park)
     {
@@ -74,7 +74,7 @@ namespace ParksApi.Controllers
       return CreatedAtAction(nameof(GetPark), new { id = park.ParkId }, park);
     }
 
-    // PUT parks/{id}
+    // PUT api/Parks/{id}
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, Park park)
     {
@@ -104,7 +104,7 @@ namespace ParksApi.Controllers
       return Accepted();
     }
 
-    // DELETE parks/{id}
+    // DELETE api/Parks/{id}
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {

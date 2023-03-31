@@ -10,7 +10,8 @@ namespace ParksApi.Models
     [Required]
     public string City { get; set; }
     [Required]
-    [Range(4, 14, ErrorMessage = "Must be the full state name.")]
     public string State { get; set; }
+    public bool NationalPark { get; set; }
+    public bool StatePark { get; set; } = false;
   }
 }

@@ -17,7 +17,7 @@ namespace ParksApi.Controllers
 
     // GET api/Parks?page=1&pageSize=10
     [HttpGet]
-    public async Task<IActionResult> Get(string city, string state, int page = 1, int pageSize = 10)
+    public async Task<IActionResult> Get(string city, string state, bool statePark, bool nationalPark, int page = 1, int pageSize = 10)
     {
       IQueryable<Park> query = _db.Parks.AsQueryable();
 
@@ -31,6 +31,16 @@ namespace ParksApi.Controllers
         query = query.Where(e => e.State == state);
       }
 
+      if (statePark)
+      {
+        query = query.Where(e => e.StatePark == true);
+      }
+
+      if (nationalPark)
+      {
+        query = query.Where(e => e.NationalPark == true);
+      }
+
       // add pagination
       int skip = (page - 1) * pageSize;
 
@@ -42,7 +52,7 @@ namespace ParksApi.Controllers
       int totalCount = _db.Parks.Count();
       var response = new
       {
-        Parks = parks,
+        QueriedParks = parks,
         TotalParks = totalCount,
         CurrentPage = page,
         ParksPerPage = pageSize

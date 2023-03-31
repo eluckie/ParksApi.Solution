@@ -2,7 +2,7 @@
 
 #### By E. Luckie ☀️
 
-#### This web API acts as a collection of National and State Parks. You can GET the full list of parks saved in the database, as well as add a park, update a park, or delete a park from the database. 
+#### This web API acts as a collection of National and State Parks. Users can `GET` the full list of parks saved in the database, as well as add a park, update a park, or delete a park from the database. `GET` requests for a non-specific park also returns the Total Park Count and is paginated.
 
 ## Technologies Used
 
@@ -55,26 +55,68 @@
 #### Example Queries
 
 >The following query will return all parks with a city value of "Aurora":
->```GET http://localhost:5000/api/parks?city=aurora```
+
+>```GET http://localhost:5002/api/parks?city=aurora```
 
 
 >The following query will return all parks with a state value of "California":
->```GET http://localhost:5000/api/parks?state=california```
+
+>```GET http://localhost:5002/api/parks?state=california```
 
 
 >The following query will return all parks with a statePark value of "true":
->```GET http://localhost:5000/api/parks?statePark=true```
+
+>```GET http://localhost:5002/api/parks?statePark=true```
 
 
 >It's possible to include multiple query strings by separating them with an `&`:
->```GET http://localhost:5000/api/parks?state=Colorado&nationalPark=true```
+
+>```GET http://localhost:5002/api/parks?state=Colorado&nationalPark=true```
+
+
+>The following query will return all parks on page 2, and each page will list 3 parks (rather than the default of 10 parks per page, and starting at page 1):
+
+>```GET http://localhost:5002/api/Parks?page=2&pageSize=3```
+
+
+#### Example Response
+
+`GET http://localhost:5002/api/Parks?page=1&pageSize=2`
+
+```json
+{
+  "queriedParks": [
+    {
+      "parkId": 1,
+      "name": "Grand Canyon National Park",
+      "city": "Grand Canyon Village",
+      "state": "Arizona",
+      "nationalPark": true,
+      "statePark": false
+    },
+    {
+      "parkId": 2,
+      "name": "Cherry Creek State Park",
+      "city": "Aurora",
+      "state": "Colorado",
+      "nationalPark": false,
+      "statePark": true
+    }
+  ],
+  "totalParks": 8,
+  "currentPage": 1,
+  "parksPerPage": 2
+}
+```
+
+**NOTE:** You may choose to update either the `currentPage` to `2` in the `GET` request to see the next page of results, or update `pageSize` to a number greater than the number of `totalParks` so all parks will display in one page.
 
 
 ### Additional Requirements
 
 #### for POST request
 
-When making a `POST` request to `http://localhost:5000/api/Parks/`, you need to include a **body**. Here's an example body in JSON:
+When making a `POST` request to `http://localhost:5002/api/Parks/`, you need to include a **body**. Here's an example body in JSON:
 
 ```json
 {
@@ -88,9 +130,9 @@ When making a `POST` request to `http://localhost:5000/api/Parks/`, you need to 
 
 #### for PUT request
 
-When making a `PUT` request to `http://localhost:5000/api/Parks/{id}`, you need to include a body that includes the park's `parkId` property which must match the id number in the URL. Here's an example in JSON:
+When making a `PUT` request to `http://localhost:5002/api/Parks/{id}`, you need to include a body that includes the park's `parkId` property which must match the id number in the URL. Here's an example in JSON:
 
-`PUT http://localhost:5000/api/Parks/1`
+`PUT http://localhost:5002/api/Parks/1`
 
 ```json
 {
@@ -105,9 +147,9 @@ When making a `PUT` request to `http://localhost:5000/api/Parks/{id}`, you need 
 
 #### for PATCH request
 
-When making a `PATCH` request to `http://localhost:5000/api/Parks/{id}`, you need to include a body that includes the park's property to update, specify an operation, and specify the new value. Here's an example in JSON:
+When making a `PATCH` request to `http://localhost:5002/api/Parks/{id}`, you need to include a body that includes the park's property to update, an operation to perform, and a new value. The `{id}` in the URL should be replaced with the `parkId` of the park you're updating. Here's an example body in JSON:
 
-_(Though you may choose to include the old value of the property with "from", it is not required and is only included here for clarity's sake.)_
+_(Though you may choose to include the old value of the property with "from", it is **not required** and is only included here for clarity's sake.)_
 
 ```json
 {
@@ -133,10 +175,11 @@ You are able to update multiple properties at once by chaining together with a c
 }
 ```
 
+
 | "op" | result |
 | ---- | ------ |
 | "replace" | replaces specified path's corresponding property with value specified |
-| "remove" | resets specified path's corresponding property to null or false, if boolean | 
+| "remove" | resets specified path's corresponding property to null (or false, if boolean) | 
 
 **NOTE:** Though there are additional operations within Patch functionality, this API has not been configured to need or support any other operations aside from `REPLACE` and `REMOVE`
 

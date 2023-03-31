@@ -58,6 +58,7 @@ namespace ParksApi.Controllers
         CurrentPage = page,
         ParksPerPage = pageSize
       };
+      // end pagination
 
       return Ok(response);
     }

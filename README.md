@@ -2,7 +2,7 @@
 
 #### By E. Luckie ☀️
 
-#### This project is an API for state and national parks. The API will list state and national parks.
+#### This web API acts as a collection of National and State Parks. You can GET the full list of parks saved in the database, as well as add a park, update a park, or delete a park from the database. 
 
 ## Technologies Used
 
@@ -10,21 +10,16 @@
 * .NET 7.0
 * Postman
 * Swagger
+* MySQL Workbench
 * NewtonSoft
 * Markdown
 * Git
 
-
-## Description
-
-_{This is a detailed description of your application. Give as much detail as needed to explain what the application does as well as any other information you want users or other developers to have.}_
-
-
 ## Set Up and Run Project
 
-1. Clone this repo.
-2. Open the terminal and navigate to this project's production directory. called "ParksApi".
-3. Within the production directory "ParksApi", create a new file called `appsettings.json`.
+1. Clone this repository.
+2. Open the terminal and navigate to this project's production directory. called "ParksApi". Run the command `dotnet restore` to restore all necessary packages.
+3. Then, still within the production directory "ParksApi", create a new file called `appsettings.json`.
 4. Within `appsettings.json`, put in the following code, replacing the `[YOUR-USERNAME-HERE]` and `[YOUR-PASSWORD-HERE]` with your own credentials for MySQL. 
 
 ```json
@@ -35,17 +30,16 @@ _{This is a detailed description of your application. Give as much detail as nee
 }
 ```
 
-5. Within the production directory "ParksApi", run `dotnet run` in the command line to start the project in development mode.
+5. Ensure you save the changes made to the `appsettings.json` file and then run the command `dotnet ef database update` in the command line. This will create the base database in MySQL Workbench including the parks that are hard-coded into the database.
+6. Within the production directory "ParksApi", run `dotnet run` in the command line to start the project in development mode.
 
-_{ADD STEPS FOR RESTORING THE DATABASE ETC.}_
+## Models
 
-## Schemas
-
-_{screenshot swagger schema}_
+![screenshot of Park model properties and their data types. parkId is an integer, name is a required string, city is a required string, state is a required string with a minimum length of 4 and maximum length of 15 characters, nationalPark and statePark are both booleans](ParksApi/wwwroot/img/park-model.png)
 
 ## Endpoints
 
-_{screenshot swagger endpoints?}_
+![screenshot of available endpoints including GET Parks, POST Parks, GET Parks/id, PUT Parks/id, DELETE Parks/id, PATCH Parks/id](ParksApi/wwwroot/img/endpoints.png)
 
 ### Optional Parameters
 
@@ -59,19 +53,22 @@ _{screenshot swagger endpoints?}_
 | pageNumber | int | default value set to 1 | value is editable to change the current page number of results displayed in the response |
 
 #### Example Queries
-_{screenshot example queries ?}_
 
-<!-- * The following query will return all animals with a species value of "Dinosaur":
-```GET http://localhost:5000/api/animals?species=dinosaur```
+>The following query will return all parks with a city value of "Aurora":
+>```GET http://localhost:5000/api/parks?city=aurora```
 
-* The following query will return all animals with the name "Matilda":
-```GET http://localhost:5000/api/animals?name=matilda```
 
-* The following query will return all animals with an age of 10 or older:
-```GET http://localhost:5000/api/animals?minimumAge=10```
+>The following query will return all parks with a state value of "California":
+>```GET http://localhost:5000/api/parks?state=california```
 
-* It's possible to include multiple query strings by separating them with an `&`:
-```GET http://localhost:5000/api/animals?species=dinosaur&minimumAge=10``` -->
+
+>The following query will return all parks with a statePark value of "true":
+>```GET http://localhost:5000/api/parks?statePark=true```
+
+
+>It's possible to include multiple query strings by separating them with an `&`:
+>```GET http://localhost:5000/api/parks?state=Colorado&nationalPark=true```
+
 
 ### Additional Requirements
 
@@ -106,6 +103,43 @@ When making a `PUT` request to `http://localhost:5000/api/Parks/{id}`, you need 
 }
 ```
 
+#### for PATCH request
+
+When making a `PATCH` request to `http://localhost:5000/api/Parks/{id}`, you need to include a body that includes the park's property to update, specify an operation, and specify the new value. Here's an example in JSON:
+
+_(Though you may choose to include the old value of the property with "from", it is not required and is only included here for clarity's sake.)_
+
+```json
+{
+  "path": "city",
+  "op": "replace",
+  "from": "Yosemite Nat'l Park",
+  "value": "Yosemite National Park"
+}
+```
+
+You are able to update multiple properties at once by chaining together with a comma separating each `PATCH` operations. Here's an example body in JSON:
+
+```json
+{
+  "path": "city",
+  "op": "replace",
+  "from": "Yosemite Nat'l Park",
+  "value": "Yosemite National Park"
+},
+{
+  "path": "statePark",
+  "op": "remove",
+}
+```
+
+| "op" | result |
+| ---- | ------ |
+| "replace" | replaces specified path's corresponding property with value specified |
+| "remove" | resets specified path's corresponding property to null or false, if boolean | 
+
+**NOTE:** Though there are additional operations within Patch functionality, this API has not been configured to need or support any other operations aside from `REPLACE` and `REMOVE`
+
 
 ## Known Bugs
 
@@ -113,7 +147,6 @@ When making a `PUT` request to `http://localhost:5000/api/Parks/{id}`, you need 
 
 ## Stretch Plans
 
-* Add `PATCH` functionality.
 * Hard-code more parks in
 * Add a `RANDOM` endpoint that randomly returns a park.
 * Add a second custom endpoint that accepts parameters. Example: a `SEARCH` route that allows users to search by specific park names.

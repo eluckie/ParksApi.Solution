@@ -10,6 +10,7 @@
 * .NET 7.0
 * Postman
 * Swagger
+* NewtonSoft
 * Markdown
 * Git
 
@@ -40,26 +41,23 @@ _{ADD STEPS FOR RESTORING THE DATABASE ETC.}_
 
 ## Endpoints
 
-<!-- GET http://localhost:5000/api/animals/
-
-GET http://localhost:5000/api/animals/{id}
-
-POST http://localhost:5000/api/animals/
-
-PUT http://localhost:5000/api/animals/{id}
-
-DELETE http://localhost:5000/api/animals/{id} -->
+_{screenshot swagger endpoints?}_
 
 ### Optional Parameters
 
-<!-- | Parameter | Type | Required | Description |
+| Parameter | Type | Required | Description |
 | --------- | ----- | ------- | ----------- |
-| species | string | not required | returns animals with a matching species value |
-| name | string | not required | returns animals with a matching name value | 
-| minimumAge | number | not required | returns animals than have an age value that is greater than or equal to the specified minimumAge value | 
+| city | string | not required | returns parks with a matching city value |
+| state | string | not required | returns parks with a matching state value | 
+| statePark | boolean | not required | returns parks that have a StatePark property value of true |
+| nationalPark | boolean | not required | returns parks that have a NationalPark property value of true |
+| pageSize | int | default value set to 10 | value is editable to change the amount of parks displayed per page in the response |  
+| pageNumber | int | default value set to 1 | value is editable to change the current page number of results displayed in the response |
 
 #### Example Queries
-* The following query will return all animals with a species value of "Dinosaur":
+_{screenshot example queries ?}_
+
+<!-- * The following query will return all animals with a species value of "Dinosaur":
 ```GET http://localhost:5000/api/animals?species=dinosaur```
 
 * The following query will return all animals with the name "Matilda":
@@ -73,46 +71,55 @@ DELETE http://localhost:5000/api/animals/{id} -->
 
 ### Additional Requirements
 
-<!-- #### for POST request
+#### for POST request
 
-When making a POST request to `http://localhost:5000/api/animals/`, you need to include a **body**. Here's an example body in JSON:
+When making a POST request to `http://localhost:5000/api/Parks/`, you need to include a **body**. Here's an example body in JSON:
 
 ```json
 {
-  "species": "Tyrannosaurus Rex",
-  "name": "Elizabeth",
-  "age": 8
+  "name": "Rocky Mountain Nat'l Park",
+  "city": "Estes Park",
+  "state": "Colorado",
+  "nationalPark": true,
+  "statePark": false
 }
 ```
 
 #### for PUT request
-When making a PUT request to `http://localhost:5000/api/animals/{id}`, you need to include a body that includes the animal's `animalId` property. Here's an example body in JSON:
+
+When making a PUT request to `http://localhost:5000/api/Parks/{id}`, you need to include a body that includes the park's `parkId` property which must match the id number in the URL. Here's an example body in JSON:
 
 ```json
 {
-  "animalId": 1,
-  "species": "Tyrannosaurus Rex",
-  "name": "Lizzy",
-  "age": 9
+  "parkId": 1,
+  "name": "Rocky Mountain National Park",
+  "city": "Estes Park",
+  "state": "Colorado",
+  "nationalPark": true,
+  "statePark": false
 }
 ```
 
 And here's the PUT request we would send the body to:
 
-`http://localhost:5000/api/animals/1`
+`http://localhost:5000/api/Parks/1`
 
-Notice that the value of `animalId` needs to match the id number in the URL. In this example, they are both 1. -->
 
 ## Known Bugs
 
-* _Any known issues_
-* _should go here_
+* No known bugs.
 
 ## Stretch Plans
 
-* Add a front end MVC application that consumes this API.
+* Add `PATCH` functionality.
 * Add a `RANDOM` endpoint that randomly returns a park.
 * Add a second custom endpoint that accepts parameters. Example: a `SEARCH` route that allows users to search by specific park names.
+* Add a front end MVC application that consumes this API.
+
+#### Further Exploration Topics
+>* Token-based authentication
+>* API versioning
+>* Enable CORS
 
 ## License
 

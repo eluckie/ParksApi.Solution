@@ -45,7 +45,7 @@ namespace ParksApi.Controllers
       return CreatedAtAction(nameof(GetPark), new { id = park.ParkId }, park);
     }
 
-    // PUT parks/id
+    // PUT parks/{id}
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, Park park)
     {
@@ -73,6 +73,22 @@ namespace ParksApi.Controllers
       }
 
       return Accepted();
+    }
+
+    // DELETE parks/{id}
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+      Park park = await _db.Parks.FindAsync(id);
+      if (park == null)
+      {
+        return NotFound();
+      }
+
+      _db.Parks.Remove(park);
+      await _db.SaveChangesAsync();
+
+      return NoContent();
     }
 
     private bool ParkExists(int id)

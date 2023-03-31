@@ -17,7 +17,7 @@ namespace ParksApi.Controllers
 
     // GET /parks
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Park>>> Get(string city, string state)
+    public async Task<IActionResult> Get(string city, string state, int page = 1, int pageSize = 10)
     {
       IQueryable<Park> query = _db.Parks.AsQueryable();
 
@@ -31,7 +31,24 @@ namespace ParksApi.Controllers
         query = query.Where(e => e.State == state);
       }
 
-      return await query.ToListAsync();
+      // add pagination
+      int skip = (page - 1) * pageSize;
+
+      List<Park> parks = await query
+        .Skip(skip)
+        .Take(pageSize)
+        .ToListAsync();
+
+      int totalCount = _db.Parks.Count();
+      var response = new
+      {
+        Parks = parks,
+        TotalParks = totalCount,
+        CurrentPage = page,
+        ParksPerPage = pageSize
+      };
+
+      return Ok(response);
     }
 
     // GET /parks/{id}

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ParksApi.Models;
@@ -111,7 +112,7 @@ namespace ParksApi.Controllers
         }
       }
 
-      return Accepted();
+      return Ok();
     }
 
     // DELETE api/Parks/{id}
@@ -128,6 +129,22 @@ namespace ParksApi.Controllers
       await _db.SaveChangesAsync();
 
       return NoContent();
+    }
+
+    // PATCH api/Parks/{id}
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> Patch(int id, JsonPatchDocument parkModel)
+    {
+      Park park = await _db.Parks.FindAsync(id);
+
+      if (!ParkExists(id))
+      {
+        return NotFound();
+      }
+
+      parkModel.ApplyTo(park);
+      await _db.SaveChangesAsync();
+      return Ok();
     }
 
     private bool ParkExists(int id)

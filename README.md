@@ -25,10 +25,17 @@ This API implements token-based authorization for any destructive actions. Any u
 1. Clone this repository.
 2. Open the terminal and navigate to this project's production directory. called "ParksApi". Run the command `dotnet restore` to restore all necessary packages.
 3. Then, still within the production directory "ParksApi", create a new file called `appsettings.json`.
-4. Within `appsettings.json`, put in the following code, replacing the `[YOUR-USERNAME-HERE]` and `[YOUR-PASSWORD-HERE]` with your own credentials for MySQL. 
+4. Within `appsettings.json`, put in the following code, replacing the `[YOUR-USERNAME-HERE]` and `[YOUR-PASSWORD-HERE]` with your own credentials for MySQL. You will also need to replace `[RANDOM-STRING]` with your own string. I recommend a random string generator such as [this one](https://www.random.org/strings/)
 
 ```json
 {
+  "AllowedHosts": "*",
+  "Jwt": {
+    "Key": "[RANDOM-STRING]",
+    "Issuer": "https://localhost:44390",
+    "Audience": "https://localhost:44390"
+  },
+
   "ConnectionStrings": {
     "DefaultConnection": "Server=localhost;Port=3306;database=parks_api;uid=[YOUR-USERNAME-HERE];pwd=[YOUR-PASSWORD-HERE];"
   }
@@ -146,8 +153,8 @@ The following query will return all parks on page 2, and each page will list 3 p
 
 ### Additional Requirements
 
-### for all POST, PUT, PATCH, and DELETE requests
-#### Your token must be included with every destructive request or you will receive an `Unauthorized` error. Don't forget to include the necessary contents in the body of the request along with your token. I recommend **Postman** as a tool for these requests as it's easy to attach both
+#### for all POST, PUT, PATCH, and DELETE requests
+**Your token must be included with every destructive request or you will receive an `Unauthorized` error. Don't forget to include the necessary contents in the body of the request along with your token. I recommend Postman as a tool for these requests as it's easy to attach both**
 
 1. Open the Postman application.
 2. Under the URL bar for your request, click on **Authorization** and change the **Type** to _**Bearer Token**_.

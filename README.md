@@ -204,27 +204,31 @@ When making a `PATCH` request to `http://localhost:5002/api/Parks/{id}`, you nee
 _(Though you may choose to include the old value of the property with "from", it is **not required** and is only included here for clarity's sake.)_
 
 ```json
-{
-  "path": "city",
-  "op": "replace",
-  "from": "Yosemite Nat'l Park",
-  "value": "Yosemite National Park"
-}
+[
+  {
+    "path": "city",
+    "op": "replace",
+    "from": "Yosemite Nat'l Park",
+    "value": "Yosemite National Park"
+  }
+]
 ```
 
 You are able to update multiple properties at once by chaining together with a comma separating each `PATCH` operation. Here's an example body in JSON:
 
 ```json
-{
-  "path": "city",
-  "op": "replace",
-  "from": "Yosemite Nat'l Park",
-  "value": "Yosemite National Park"
-},
-{
-  "path": "statePark",
-  "op": "remove",
-}
+[
+  {
+    "path": "city",
+    "op": "replace",
+    "from": "Yosemite Nat'l Park",
+    "value": "Yosemite National Park"
+  },
+  {
+      "path": "statePark",
+      "op": "remove",
+  }
+]
 ```
 
 | "op" | result |

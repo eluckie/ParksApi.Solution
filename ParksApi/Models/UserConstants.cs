@@ -4,6 +4,7 @@ namespace ParksApi.Models
   {
     public static List<User> Users = new List<User> ()
     {
+      // new User() { Username = "newUser", Password = "NewPassword1!", Email = "email@email.com", Name = "new user" },
       new User() { Username = "adminTestUser", Password = "Password1!", Email = "email1@emailcom", Name = "Admin User" },
       new User() { Username = "testUser", Password = "Password2!", Email = "email2@email.com", Name = "Test User" }
     };

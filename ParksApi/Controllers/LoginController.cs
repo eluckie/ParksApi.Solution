@@ -44,7 +44,6 @@ namespace ParksApi.Controllers
         new Claim(ClaimTypes.NameIdentifier, user.Username),
         new Claim(ClaimTypes.Email, user.Email),
         new Claim(ClaimTypes.GivenName, user.Name),
-        new Claim(ClaimTypes.Role, user.Role)
       };
 
       var token = new JwtSecurityToken(_config["Jwt:Issuer"], _config["Jwt:Audience"],

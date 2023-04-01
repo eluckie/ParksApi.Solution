@@ -54,9 +54,11 @@ namespace ParksApi.Controllers
         .ToListAsync();
 
       int totalCount = _db.Parks.Count();
+      int queryCount = query.Count();
       var response = new
       {
         QueriedParks = parks,
+        MatchingParks = queryCount,
         TotalParks = totalCount,
         CurrentPage = page,
         ParksPerPage = pageSize

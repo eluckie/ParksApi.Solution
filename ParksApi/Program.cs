@@ -32,6 +32,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddMvc();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -47,7 +48,10 @@ else
     app.UseHttpsRedirection();
 }
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
 app.UseStaticFiles();
 
 app.MapControllers();

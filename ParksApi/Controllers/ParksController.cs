@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -5,6 +6,7 @@ using ParksApi.Models;
 
 namespace ParksApi.Controllers
 {
+  [Authorize]
   [ApiController]
   [Route("api/[controller]")]
   public class ParksController : ControllerBase
@@ -17,6 +19,7 @@ namespace ParksApi.Controllers
     }
 
     // GET api/Parks?page=1&pageSize=10
+    [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> Get(string city, string state, bool statePark, bool nationalPark, int page = 1, int pageSize = 10)
     {
@@ -64,6 +67,7 @@ namespace ParksApi.Controllers
     }
 
     // GET api/Parks/{id}
+    [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<ActionResult<Park>> GetPark(int id)
     {

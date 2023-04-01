@@ -194,7 +194,6 @@ You are able to update multiple properties at once by chaining together with a c
 
 * Add Users to database & remove UsersController 
 * Add a `RANDOM` endpoint that randomly returns a park.
-* Document token-based authorization use
 * Add a second custom endpoint that accepts parameters. Example: a `SEARCH` route that allows users to search by specific park names.
 * Add a front end MVC application that consumes this API.
 

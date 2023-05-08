@@ -89,7 +89,7 @@ new User() { Username = "newUser", Password = "NewPassword1!", Email = "email@em
 | statePark | boolean | not required | returns parks that have a StatePark property value of true |
 | nationalPark | boolean | not required | returns parks that have a NationalPark property value of true |
 | pageSize | integer | default value set to 10 | value is editable to change the amount of parks displayed per page in the response |  
-| pageNumber | integer | default value set to 1 | value is editable to change the current page number of results displayed in the response |
+| page | integer | default value set to 1 | value is editable to change the current page number of results displayed in the response |
 
 #### Example Queries
 
@@ -142,13 +142,14 @@ The following query will return all parks on page 2, and each page will list 3 p
       "statePark": true
     }
   ],
+  "matchingParks": 5,
   "totalParks": 8,
   "currentPage": 1,
   "parksPerPage": 2
 }
 ```
 
-**NOTE:** You may choose to update either the `currentPage` in the `GET` request to see a different page of results, or update `pageSize` to a number greater than the number of `totalParks` so all parks will display in one page.
+**NOTE:** You may choose to update either the `page` in the `GET` request to see a different page of results, or update `pageSize` to a number greater than the number of `totalParks` so all parks will display in one page.
 
 
 ### Additional Requirements

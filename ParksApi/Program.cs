@@ -6,6 +6,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors();
+
 builder.Services.AddControllers()
     .AddNewtonsoftJson();
 
@@ -48,11 +50,18 @@ else
     app.UseHttpsRedirection();
 }
 
+app.UseStaticFiles();
+
 app.UseAuthentication();
 
-app.UseAuthorization();
+app.UseCors(builder =>
+{
+    builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+});
 
-app.UseStaticFiles();
+app.UseAuthorization();
 
 app.MapControllers();
 

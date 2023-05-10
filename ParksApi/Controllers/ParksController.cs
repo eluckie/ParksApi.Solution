@@ -6,7 +6,7 @@ using ParksApi.Models;
 
 namespace ParksApi.Controllers
 {
-  [Authorize]
+  // [Authorize]
   [ApiController]
   [Route("api/[controller]")]
   public class ParksController : ControllerBase

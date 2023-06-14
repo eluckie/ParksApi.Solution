@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/fbd9d4aa-bf8f-4897-8b0a-8b2ff402b8b2/resourceGroups/parksapi-rg/providers/Microsoft.Web/sites/parksapi",
+  "appService.deploySubpath": "ParksApi/bin/Release/net7.0/publish"
+}
